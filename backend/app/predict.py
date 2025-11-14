@@ -1,0 +1,43 @@
+import os
+import io
+import numpy as np
+from PIL import Image
+import tensorflow as tf
+from keras.applications.mobilenet_v2 import preprocess_input
+
+MODEL_PATH = os.getenv("MODEL_PATH", "models/best_model.keras")
+IMG_SIZE = int(os.getenv("IMG_SIZE", "224"))
+LABELS = ["dry", "normal", "oily"]  # set same as training
+
+# load model once
+model = tf.keras.models.load_model(MODEL_PATH)
+
+def preprocess_image(image_bytes: bytes):
+    try:
+        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    except Exception as e:
+        return None, f"Image unreadable: {e}"
+    img = img.resize((IMG_SIZE, IMG_SIZE))
+    arr = preprocess_input(np.array(img).astype("float32"))
+    return np.expand_dims(arr, 0), None
+
+def predict_skin(image_bytes: bytes):
+    arr, err = preprocess_image(image_bytes)
+    if err:
+        return None, err
+    preds = model.predict(arr)[0]
+    top_idx = int(np.argmax(preds))
+    
+    return {
+        "prediction": LABELS[top_idx],
+        "confidence": float(preds[top_idx]),  # raw probability
+        "confidence_display": f"{preds[top_idx]*100:.1f}%",
+        "all_predictions": [
+            {
+                "label": l,
+                "confidence": float(p),
+                "confidence_display": f"{p*100:.1f}%"
+            } for l, p in zip(LABELS, preds)
+        ]
+    }, None
+
