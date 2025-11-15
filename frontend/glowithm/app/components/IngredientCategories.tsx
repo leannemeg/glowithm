@@ -1,4 +1,3 @@
-// utils/IngredientCategories.tsx
 import IngAccordion from "@/app/components/IngAccordion";
 import { IngredientRead } from "@/interfaces/interfaces";
 import React from "react";

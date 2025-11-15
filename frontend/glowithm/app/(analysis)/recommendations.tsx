@@ -7,6 +7,7 @@ import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { IngredientRead } from "@/interfaces/interfaces";
 import { router } from "expo-router";
+import useHistory from "@/hooks/useHistory";
 import React, { useState } from "react";
 import {
   Image,
@@ -23,6 +24,7 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 export default function Recommendations() {
   const { result, loading } = usePredictionResult();
+  const { savePrediction } = useHistory();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"recommended" | "avoided">(
     "recommended"
@@ -41,7 +43,6 @@ export default function Recommendations() {
   };
 
   if (loading) return <LoadingScreen />;
-
   if (!result) return <EmptyState title="No Recommendations Found" />;
 
   return (
@@ -134,7 +135,17 @@ export default function Recommendations() {
             <View className="flex-1 ml-2">
               <Button
                 title="Save to History"
-                onPress={() => router.push("/(tabs)/history")}
+                onPress={async () => {
+                  if (!result) return;
+
+                  try {
+                    await savePrediction(result);
+                  } catch (error) {
+                    console.error("Failed to save history entry:", error);
+                  }
+
+                  router.push("/(tabs)/history");
+                }}
                 size="small"
                 icon="secondary"
               />

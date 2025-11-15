@@ -28,6 +28,10 @@ import settings from '@/assets/icons/settings.png';
 import soother from '@/assets/icons/soother.png';
 import trash from '@/assets/icons/trash.png';
 import uv from '@/assets/icons/uv.png';
+import dry from '@/assets/icons/dry.png';
+import normal from '@/assets/icons/normal.png';
+import oily from '@/assets/icons/oily.png';
+import unknown from '@/assets/icons/unknown.png';
 
 export const icons = {
     home,
@@ -59,5 +63,9 @@ export const icons = {
     cancel,
     analyze,
     analyze_again,
-    save
+    save,
+    dry,
+    normal,
+    oily,
+    unknown
 };
