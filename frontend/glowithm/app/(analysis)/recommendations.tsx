@@ -2,7 +2,7 @@ import Button from "@/app/components/Button";
 import IngredientDetailModal from "@/app/components/IngredientDetailModal";
 import SearchBar from "@/app/components/SearchBar";
 import TabNavigation from "@/app/components/TabNavigation";
-import { usePredictionResult } from "@/app/hooks/usePredictionResult";
+import { usePredictionResult } from "@/hooks/usePredictionResult";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { IngredientRead } from "@/interfaces/interfaces";

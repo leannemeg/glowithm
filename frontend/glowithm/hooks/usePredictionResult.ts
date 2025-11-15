@@ -31,5 +31,3 @@ export const usePredictionResult = () => {
 
   return { result, loading, handleRetry };
 };
-
-export default usePredictionResult;

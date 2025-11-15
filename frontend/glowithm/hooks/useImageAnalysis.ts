@@ -108,5 +108,3 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
     handleCancelAnalysis,
   };
 };
-
-export default useImageAnalysis;

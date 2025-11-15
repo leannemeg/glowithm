@@ -12,6 +12,6 @@ class Ingredient(Base):
     categories = Column(ARRAY(String), nullable=True)                # ["Hydrators", "Emollients"]
     recommended_for = Column(ARRAY(String), nullable=True)           # ["dry", "normal"]
     avoided_for = Column(ARRAY(String), nullable=True)               # ["oily"]
-    details = Column(Text, nullable=True)                           # long description
+    details = Column(Text, nullable=True)                            # long description
     quickfacts = Column(ARRAY(String), nullable=True)                # list of facts in bullet form
-    proof = Column(ARRAY(String), nullable=True)                # list of URLs with more info
+    proof = Column(ARRAY(String), nullable=True)                     # list of URLs with more info

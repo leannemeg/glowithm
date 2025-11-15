@@ -1,4 +1,4 @@
-import { useImageAnalysis } from "@/app/hooks/useImageAnalysis";
+import { useImageAnalysis } from "@/hooks/useImageAnalysis";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import {

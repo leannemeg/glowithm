@@ -1,5 +1,5 @@
 import ConfidenceScores from "@/app/components/ConfidenceScores";
-import { usePredictionResult } from "@/app/hooks/usePredictionResult";
+import { usePredictionResult } from "@/hooks/usePredictionResult";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { router } from "expo-router";
@@ -71,9 +71,7 @@ export default function Results() {
           <Button
             title="View Recommendations"
             onPress={() => router.push("/recommendations")}
-            variant="default"
-            size="large"
-            fullWidth
+            size="default"
           />
           <Text className="font-poppins-medium text-sm text-inactive text-center mt-4">
             Not satisfied with the results?{" "}
