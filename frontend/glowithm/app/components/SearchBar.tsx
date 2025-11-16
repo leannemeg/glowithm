@@ -3,7 +3,6 @@ import React from "react";
 import { icons } from "@/constants/icons";
 
 interface SearchBarProps {
-  placeholder?: string;
   value: string;
   onChangeText: (text: string) => void;
   showClear?: boolean;
@@ -12,22 +11,20 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = "Search...",
   value,
   onChangeText,
   showClear = true,
-  containerStyle = "bg-white rounded-full px-4 py-1 flex-row items-center",
+  containerStyle = "bg-white rounded-full flex-row items-center",
   inputStyle = "flex-1 font-poppins-regular text-base",
 }) => {
   return (
-    <View className={containerStyle}>
+    <View className={containerStyle} style={{ borderColor: "#D1D5DB", borderWidth: 1, }}>
       <Image
         source={icons.search}
         className="w-5 h-5"
-        style={{ marginRight: 8 }}
+        style={{ marginRight: 8, marginBottom: 2 }}
       />
       <TextInput
-        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
         className={inputStyle}

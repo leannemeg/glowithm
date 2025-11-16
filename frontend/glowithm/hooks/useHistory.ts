@@ -43,12 +43,19 @@ export default function useHistory(initial: HistoryEntry[] = []) {
 
   const savePrediction = useCallback(async (result: PredictResponse) => {
     const id = Date.now().toString();
+
+    // Sort predictions so we reliably pick top and the next two
+    const preds = (result.all_predictions || []).slice().sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0));
+    const top = preds[0];
+    const nextTwo = preds.slice(1, 3);
+
     const entry: HistoryEntry = {
       id,
+      // keep using server-provided skin_type as the displayed type to avoid changing UI
       type: result.skin_type || "",
-      primaryScore: result.confidence_display ?? `${result.confidence}%`,
+      primaryScore: top ? (top.confidence_display ?? `${Math.round(((top.confidence ?? 0) * 100))}%`) : (result.confidence_display ?? `${Math.round(((result.confidence ?? 0) * 100))}%`),
       dateLabel: new Date().toLocaleString(),
-      breakdown: (result.all_predictions || []).slice(0, 2).map((p) => ({ label: p.label, value: p.confidence_display || `${Math.round(p.confidence * 100)}%` })),
+      breakdown: nextTwo.map((p) => ({ label: p.label, value: p.confidence_display ?? `${Math.round(((p.confidence ?? 0) * 100))}%` })),
       icon: getIconKeyFromSkinType(result.skin_type),
     };
 

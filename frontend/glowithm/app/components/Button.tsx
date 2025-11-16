@@ -26,11 +26,11 @@ const Button: React.FC<ButtonProps> = ({
     } as const;
     switch (icon) {
       case "primary":
-        return <Image source={icons.analyze_again} style={iconStyle} />;
+        return <Image source={icons.analyze_again} style={{ ...iconStyle, width: 42, height: 42 }} />;
       case "secondary":
-        return <Image source={icons.save} style={iconStyle} />;
+        return <Image source={icons.save} style={{ ...iconStyle, width: 42, height: 42 }} />;
       default:
-        return <Image source={icons.analyze} style={iconStyle} />;
+        return <Image source={icons.analyze} style={{ ...iconStyle, width: 48, height: 48 }} />;
     }
   };
 

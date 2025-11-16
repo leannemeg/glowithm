@@ -22,7 +22,7 @@ const HistoryContainer: React.FC<Props> = ({ entry, onPress }) => {
               typeof entry.icon === "string"
                 ? (icons as any)[entry.icon]
                 : entry.icon ?? icons.unknown
-            }
+            } style={{ width: 54, height: 54 }}
           />
           <View className="flex-column ml-3">
             <Text className="font-poppins-medium text-inactive text-md">

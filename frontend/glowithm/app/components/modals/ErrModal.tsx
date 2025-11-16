@@ -46,7 +46,7 @@ export default function ErrModal({ visible, onClose, error }: ErrModalProps) {
         >
           <Image
             source={icons.question_fill}
-            className="self-center"
+            className="self-center w-8 h-8"
             style={{ tintColor: "#E50004" }}
           />
           <Text className="font-poppins-semibold text-lg text-primary">

@@ -17,6 +17,7 @@ export default function IngredientDetailModal({
     <Modal
       visible={visible}
       transparent
+      statusBarTranslucent
       animationType="fade"
       onRequestClose={onClose}
     >
@@ -39,14 +40,16 @@ export default function IngredientDetailModal({
             style={{
               backgroundColor: "white",
               borderRadius: 12,
-              paddingVertical: 18,
-              paddingHorizontal: 16,
+              padding: 20,
               width: 370,
               maxHeight: "80%",
             }}
           >
             <ScrollView>
-              <Text className="font-poppins-semibold text-lg text-primary">
+              <Text
+                className="font-poppins-semibold text-xl"
+                style={{ color: "#16a34a" }}
+              >
                 {ingredient.name}
               </Text>
 
@@ -56,28 +59,46 @@ export default function IngredientDetailModal({
                 </Text>
               )}
 
-              {ingredient.details && (
-                <Text className="font-poppins-regular text-sm text-gray-700 mb-3">
-                  {ingredient.details}
-                </Text>
-              )}
-
               {ingredient.quickfacts?.length > 0 && (
                 <View className="mb-3">
-                  <Text className="font-poppins-semibold">Quick Facts</Text>
+                  <Text
+                    className="font-poppins-semibold text-lg"
+                    style={{ color: "#16a34a" }}
+                  >
+                    Quick Facts
+                  </Text>
                   {ingredient.quickfacts.map((q, i) => (
-                    <Text key={i} className="text-sm text-gray-700">
+                    <Text key={i} className=" font-poppins-regular text-sm text-gray-700">
                       • {q}
                     </Text>
                   ))}
                 </View>
               )}
 
+              {ingredient.details && (
+                <View className="mb-3">
+                  <Text
+                    className="font-poppins-semibold text-lg"
+                    style={{ color: "#16a34a" }}
+                  >
+                    Details
+                  </Text>
+                  <Text className="font-poppins-regular text-sm text-gray-700 mb-3">
+                    {ingredient.details}
+                  </Text>
+                </View>
+              )}
+
               {ingredient.proof?.length > 0 && (
                 <View className="mt-3">
-                  <Text className="font-poppins-semibold">Sources</Text>
+                  <Text
+                    className="font-poppins-semibold text-lg"
+                    style={{ color: "#16a34a" }}
+                  >
+                    Sources
+                  </Text>
                   {ingredient.proof.map((p, i) => (
-                    <Text key={i} className="text-sm text-gray-700">
+                    <Text key={i} className="font-poppins-medium text-sm text-gray-700">
                       • {p}
                     </Text>
                   ))}

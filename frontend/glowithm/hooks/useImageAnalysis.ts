@@ -13,6 +13,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
   const abortController = useRef<AbortController | null>(null);
   const progressInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const cancelledRef = useRef(false);
+  const errorOccurredRef = useRef(false);
 
   const handlePickImage = async (fromCamera: boolean) => {
     options?.onStart?.();
@@ -72,7 +73,8 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
       }
     } catch (error: any) {
       if (error.name !== "AbortError") {
-         setErrorMessage(error.message);
+        errorOccurredRef.current = true;
+        setErrorMessage(error.message);
         setErrorModalVisible(true);
       }
     } finally {
@@ -83,9 +85,12 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
 
       setTimeout(() => {
         setAnalyzing(false);
-        if (!cancelledRef.current) {
+        // Only navigate to results when the analysis wasn't cancelled and no error occurred
+        if (!cancelledRef.current && !errorOccurredRef.current) {
           router.push("/results");
         }
+        // reset error flag for next run
+        errorOccurredRef.current = false;
       }, 1500);
     }
   };

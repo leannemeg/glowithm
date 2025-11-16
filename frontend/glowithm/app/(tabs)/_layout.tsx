@@ -1,22 +1,31 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { icons } from "@/constants/icons";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import Entypo from "@expo/vector-icons/Entypo";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
-const TabIcon = ({ focused, icon, title }: any) => {
-  if (focused) {
-    return (
-      <View className="flex-1 flex-col items-center w-16">
-        <Image source={icon} tintColor="#00E576"  className="m-2" />
-        <Text className="text-active text-sm font-poppins-semibold">{title}</Text>
-      </View>
-    );
-  }
+const TabIcon = ({ focused, title }: any) => {
+  const color = focused ? "#00E576" : "#434343";
+  const renderIcon = () => {
+    if (title === "History")
+      return <FontAwesome5 name="history" size={32} color={color} />;
+
+    if (title === "Settings")
+      return <Ionicons name="settings-sharp" size={32} color={color} />;
+
+    return <Entypo name="home" size={36} color={color} />;
+  };
 
   return (
-    <View className="flex-1 flex-col items-center w-16">
-      <Image source={icon} tintColor="#434343" className="m-2" />
-      <Text className="text-inactive text-sm font-poppins-semibold">{title}</Text>
+    <View className="flex-col items-center w-16">
+      <View className="mt-4">{renderIcon()}</View>
+      <Text
+        className={`mt-1 text-sm font-poppins-semibold ${
+          focused ? "text-active" : "text-inactive"
+        }`}
+      >
+        {title}
+      </Text>
     </View>
   );
 };
@@ -34,7 +43,7 @@ const _Layout = () => {
           headerShown: false,
           title: "Home",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.home} title="Home" />
+            <TabIcon focused={focused} title="Home" />
           ),
         }}
       />
@@ -44,7 +53,7 @@ const _Layout = () => {
           headerShown: false,
           title: "History",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.history} title="History" />
+            <TabIcon focused={focused} title="History" />
           ),
         }}
       />
@@ -54,7 +63,7 @@ const _Layout = () => {
           headerShown: false,
           title: "Settings",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.settings} title="Settings" />
+            <TabIcon focused={focused} title="Settings" />
           ),
         }}
       />

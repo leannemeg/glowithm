@@ -103,6 +103,8 @@ const IngAccordion: React.FC<IngAccordionProps> = ({
                   source={getCategoryIcon()}
                   style={{
                     marginRight: 12,
+                    width: 24,
+                    height: 24,
                     tintColor: isExpanded
                       ? isRecommended
                         ? "#15803d"
@@ -126,6 +128,7 @@ const IngAccordion: React.FC<IngAccordionProps> = ({
             <Image
               source={icons.dropdown}
               style={{
+                width: 17,
                 tintColor: isExpanded
                   ? isRecommended
                     ? "#15803d"

@@ -49,7 +49,7 @@ export default function PermissionModal({
             alignItems: "center",
           }}
         >
-          <Image source={icons.question_fill} style={{ alignSelf: "center" }} />
+          <Image source={icons.question_fill} className="self-center w-8 h-8" />
 
           {/* Main Text */}
           <Text

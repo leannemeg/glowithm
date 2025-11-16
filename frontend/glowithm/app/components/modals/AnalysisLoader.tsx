@@ -8,9 +8,18 @@ interface AnalysisLoaderProps {
   onCancel: () => void;
 }
 
-const AnalysisLoader = ({ visible, progress, onCancel }: AnalysisLoaderProps) => {
+const AnalysisLoader = ({
+  visible,
+  progress,
+  onCancel,
+}: AnalysisLoaderProps) => {
   return (
-    <Modal visible={visible} transparent animationType="fade">
+    <Modal
+      visible={visible}
+      transparent
+      statusBarTranslucent
+      animationType="fade"
+    >
       <View className="flex-1 justify-center items-center bg-black/60">
         {/* Content container */}
         <View className="items-center w-72">

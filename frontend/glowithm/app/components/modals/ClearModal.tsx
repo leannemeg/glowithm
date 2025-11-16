@@ -47,7 +47,7 @@ export default function ClearModal({
             alignItems: "center",
           }}
         >
-          <Image source={icons.clear} style={{ alignSelf: "center" }} />
+          <Image source={icons.clear} className="self-center" style={{  width: 24, height: 25 }} />
 
           {/* Main Text */}
           <Text

@@ -73,8 +73,8 @@ const Home = () => {
     <ImageBackground source={images.bg1} className="flex-1" resizeMode="cover">
       <SafeAreaView className="flex-1 justify-between">
         <View className="flex-1 justify-end items-center px-6 mb-6">
-          <Image source={images.logoName} />
-          <Text className="text-md text-inactive font-poppins-medium mb-8 text-center px-8">
+          <Image source={images.logoName} style={{ width: 300, height: 60, marginBottom: 16 }} />
+          <Text className="text-md text-inactive font-poppins-medium mb-8 text-center px-4">
             Discover your skin type and get personalized ingredient
             recommendations with our AI-powered analysis.
           </Text>
@@ -88,7 +88,8 @@ const Home = () => {
         <TouchableOpacity onPress={() => setVisible(true)}>
           <Image
             source={icons.question_line}
-            className="absolute left-2"
+            className="absolute left-2 top-[-10]"
+            style={{ width: 26, height: 26 }}
           />
         </TouchableOpacity>
 

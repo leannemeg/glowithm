@@ -1,5 +1,5 @@
 import Button from "@/app/components/Button";
-import IngredientDetailModal from "@/app/components/IngredientDetailModal";
+import IngredientDetailModal from "@/app/components/modals/IngredientDetailModal";
 import SearchBar from "@/app/components/SearchBar";
 import TabNavigation from "@/app/components/TabNavigation";
 import { usePredictionResult } from "@/hooks/usePredictionResult";
@@ -57,7 +57,7 @@ export default function Recommendations() {
           style={{ paddingHorizontal: 20, paddingTop: 10 }}
         >
           <TouchableOpacity onPress={() => router.back()}>
-            <Image source={icons.back} />
+            <Image source={icons.back} style={{ width: 12, height: 20 }}/>
           </TouchableOpacity>
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary">
             Ingredient Recommendations
@@ -67,10 +67,9 @@ export default function Recommendations() {
 
         <View className="px-6" style={{ marginTop: 20 }}>
           <SearchBar
-            placeholder="Search ingredients..."
             value={searchQuery}
             onChangeText={setSearchQuery}
-            containerStyle="bg-white rounded-full px-4 py-1 flex-row items-center"
+            containerStyle="bg-white rounded-full px-4 flex-row items-center"
           />
         </View>
 

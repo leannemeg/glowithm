@@ -41,7 +41,7 @@ export default function InstructionsModal({
         >
           <Image
             source={icons.question_fill}
-            className="self-center"
+            className="self-center w-8 h-8"
           />
           <Text className="text-inactive font-poppins-regular text-sm">
             Take a <Text className="font-poppins-bold">clear</Text> photo of your face - good lighting helps the

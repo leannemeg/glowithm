@@ -50,7 +50,7 @@ const ImagePickerModal = ({
             onPress={() => handlePickImage(true)}
             className="py-4 w-full flex-row items-center"
           >
-            <Image source={icons.camera} style={{ marginHorizontal: 8 }} />
+            <Image source={icons.camera} style={{ marginHorizontal: 8, width: 25, height: 22}} />
             <Text className="text-inactive font-poppins-medium text-base">
               Use Camera
             </Text>
@@ -59,7 +59,7 @@ const ImagePickerModal = ({
             onPress={() => handlePickImage(false)}
             className="py-4 w-full flex-row items-center"
           >
-            <Image source={icons.gallery} style={{ marginHorizontal: 8 }} />
+            <Image source={icons.gallery} style={{ marginHorizontal: 8, width: 25, height: 26 }} />
             <Text className="text-inactive font-poppins-medium text-base">
               Upload from Gallery
             </Text>
