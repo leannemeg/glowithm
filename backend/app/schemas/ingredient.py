@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional, Dict
+from typing import List, Optional
 
 class IngredientBase(BaseModel):
     slug: str
@@ -17,18 +17,4 @@ class IngredientCreate(IngredientBase):
 
 class IngredientRead(IngredientBase):
     id: int
-
-    model_config = ConfigDict(from_attributes=True)  # replaces orm_mode
-
-class PredictionItem(BaseModel):
-    label: str
-    confidence: float
-    confidence_display: str
-
-class PredictResponse(BaseModel):
-    skin_type: str
-    confidence: float
-    confidence_display: str
-    all_predictions: List[PredictionItem]
-    recommended: Dict[str, List[IngredientRead]]   # grouped by category
-    avoided: Dict[str, List[IngredientRead]]       # grouped by category
+    model_config = ConfigDict(from_attributes=True)

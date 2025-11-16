@@ -4,10 +4,7 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 from keras.applications.mobilenet_v2 import preprocess_input
-
-MODEL_PATH = os.getenv("MODEL_PATH", "models/best_model.keras")
-IMG_SIZE = int(os.getenv("IMG_SIZE", "224"))
-LABELS = ["dry", "normal", "oily"]  # set same as training
+from ..core.config import MODEL_PATH, IMG_SIZE, LABELS
 
 # load model once
 model = tf.keras.models.load_model(MODEL_PATH)

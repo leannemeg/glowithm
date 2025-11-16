@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB
-from .database import Base
+from sqlalchemy.dialects.postgresql import ARRAY
+from ..database import Base
 
 class Ingredient(Base):
     __tablename__ = "ingredients"
