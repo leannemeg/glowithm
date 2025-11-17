@@ -7,7 +7,6 @@ import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { IngredientRead } from "@/interfaces/interfaces";
 import { router } from "expo-router";
-import useHistory from "@/hooks/useHistory";
 import React, { useState } from "react";
 import {
   Image,
@@ -24,7 +23,6 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 export default function Recommendations() {
   const { result, loading } = usePredictionResult();
-  const { savePrediction } = useHistory();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"recommended" | "avoided">(
     "recommended"
@@ -57,7 +55,7 @@ export default function Recommendations() {
           style={{ paddingHorizontal: 20, paddingTop: 10 }}
         >
           <TouchableOpacity onPress={() => router.back()}>
-            <Image source={icons.back} style={{ width: 12, height: 20 }}/>
+            <Image source={icons.back} style={{ width: 12, height: 20 }} />
           </TouchableOpacity>
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary">
             Ingredient Recommendations
@@ -127,26 +125,16 @@ export default function Recommendations() {
                 title="Analyze Again"
                 onPress={() => router.replace("/(tabs)/home")}
                 size="small"
-                icon="primary"
+                icon="analyze-again"
               />
             </View>
 
             <View className="flex-1 ml-2">
               <Button
                 title="Save to History"
-                onPress={async () => {
-                  if (!result) return;
-
-                  try {
-                    await savePrediction(result);
-                  } catch (error) {
-                    console.error("Failed to save history entry:", error);
-                  }
-
-                  router.push("/(tabs)/history");
-                }}
+                onPress={() => router.push("/(tabs)/history")}
                 size="small"
-                icon="secondary"
+                icon="save"
               />
             </View>
           </View>

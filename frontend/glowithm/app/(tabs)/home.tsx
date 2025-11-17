@@ -18,7 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AccessDeniedModal from "../components/modals/AccessDeniedModal";
 import AnalysisLoader from "../components/modals/AnalysisLoader";
 import ErrModal from "../components/modals/ErrModal";
-import ImagePickerModal from "../components/modals/ImagePickerModal";
+import ImagePickerSheet from "../components/sheets/ImagePickerSheet";
 import InstructionsModal from "../components/modals/InstructionsModal";
 import PermissionModal from "../components/modals/PermissionModal";
 import Button from "../components/Button";
@@ -72,17 +72,24 @@ const Home = () => {
   return (
     <ImageBackground source={images.bg1} className="flex-1" resizeMode="cover">
       <SafeAreaView className="flex-1 justify-between">
-        <View className="flex-1 justify-end items-center px-6 mb-6">
-          <Image source={images.logoName} style={{ width: 300, height: 60, marginBottom: 16 }} />
-          <Text className="text-md text-inactive font-poppins-medium mb-8 text-center px-4">
+        <View className="flex-1 justify-end items-center px-6 mb-3">
+          <Image source={images.logoName} style={{ width: 300, height: 60, marginBottom: 10 }} />
+          <Text className="text-md text-inactive font-poppins-medium mb-2 text-center px-4">
             Discover your skin type and get personalized ingredient
             recommendations with our AI-powered analysis.
+          </Text>
+          <Text className="text-sm text-inactive font-poppins-regular text-center px-10 mb-2">
+            By proceeding, you agree to our Terms of Service and Privacy Policy. See settings.
           </Text>
           <Button title="Analyze Your Skin" 
             onPress={handleProceed}
             icon="default"
             size="default"
           />
+          <Text className="text-xs text-white font-poppins-regular text-center px-20 mt-2">
+            Please note that this analysis is not a substitute for professional
+            medical advice.
+          </Text>
         </View>
 
         <TouchableOpacity onPress={() => setVisible(true)}>
@@ -107,7 +114,7 @@ const Home = () => {
           deniedModalVisible={deniedModalVisible}
           onClose={() => setDeniedModalVisible(false)}
         />
-        <ImagePickerModal
+        <ImagePickerSheet
           imagePickerVisible={imagePickerVisible}
           handlePickImage={handlePickImage}
           onClose={() => setImagePickerVisible(false)}

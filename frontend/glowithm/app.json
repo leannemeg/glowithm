@@ -22,12 +22,16 @@
       "output": "static",
       "favicon": "./assets/images/logo.png"
     },
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#DCFFDD"
-    },
-    "plugins": ["expo-router"],
+    "plugins": [
+      ["expo-router"], 
+      ["expo-splash-screen",
+        {
+          "backgroundColor": "#DCFFDD",
+          "image": "./assets/splash.png",
+          "imageWidth": 200
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

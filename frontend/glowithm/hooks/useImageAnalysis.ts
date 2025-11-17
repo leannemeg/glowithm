@@ -15,10 +15,11 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
   const cancelledRef = useRef(false);
   const errorOccurredRef = useRef(false);
 
-  const handlePickImage = async (fromCamera: boolean) => {
+  const handlePickImage = async (source: "camera" | "gallery") => {
     options?.onStart?.();
     cancelledRef.current = false;
-
+    const fromCamera = source === "camera";
+    
     try {
       let pickerResult: ImagePicker.ImagePickerResult;
       if (fromCamera) {

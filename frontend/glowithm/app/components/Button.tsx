@@ -5,7 +5,7 @@ import { Image, Text, TouchableOpacity } from "react-native";
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  icon?: "default" | "primary" | "secondary";
+  icon?: "default" | "analyze-again" | "save";
   size?: "default" | "small" | "medium";
   containerStyle?: string;
   textStyle?: string;
@@ -25,9 +25,9 @@ const Button: React.FC<ButtonProps> = ({
       right: 4,
     } as const;
     switch (icon) {
-      case "primary":
+      case "analyze-again":
         return <Image source={icons.analyze_again} style={{ ...iconStyle, width: 42, height: 42 }} />;
-      case "secondary":
+      case "save":
         return <Image source={icons.save} style={{ ...iconStyle, width: 42, height: 42 }} />;
       default:
         return <Image source={icons.analyze} style={{ ...iconStyle, width: 48, height: 48 }} />;
@@ -36,9 +36,9 @@ const Button: React.FC<ButtonProps> = ({
 
   const getStrokeColor = () => {
     switch (icon) {
-      case "primary":
+      case "analyze-again":
         return "#E5C600"; // analyze again
-      case "secondary":
+      case "save":
         return "#99E500"; // save
       default:
         return undefined;

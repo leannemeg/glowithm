@@ -2,7 +2,7 @@ import { IngredientRead } from "@/interfaces/interfaces";
 import React from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 
-interface Props {
+interface IngredientDetailModalProps {
   ingredient: IngredientRead | null;
   visible: boolean;
   onClose: () => void;
@@ -12,7 +12,7 @@ export default function IngredientDetailModal({
   ingredient,
   visible,
   onClose,
-}: Props) {
+}: IngredientDetailModalProps) {
   return (
     <Modal
       visible={visible}
@@ -23,29 +23,14 @@ export default function IngredientDetailModal({
     >
       <Pressable
         onPress={onClose}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "rgba(0,0,0,0.5)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        className="absolute top-0 left-0 right-0 bottom-0 bg-black/40 justify-center items-center"
       >
         {ingredient && (
           <Pressable
             onPress={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: "white",
-              borderRadius: 12,
-              padding: 20,
-              width: 370,
-              maxHeight: "80%",
-            }}
+            className="bg-white rounded-xl px-6 pt-6 pb-8 w-[85%] h-[70%] "
           >
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <Text
                 className="font-poppins-semibold text-xl"
                 style={{ color: "#16a34a" }}
@@ -68,7 +53,10 @@ export default function IngredientDetailModal({
                     Quick Facts
                   </Text>
                   {ingredient.quickfacts.map((q, i) => (
-                    <Text key={i} className=" font-poppins-regular text-sm text-gray-700">
+                    <Text
+                      key={i}
+                      className=" font-poppins-regular text-sm text-gray-700"
+                    >
                       • {q}
                     </Text>
                   ))}
@@ -98,7 +86,10 @@ export default function IngredientDetailModal({
                     Sources
                   </Text>
                   {ingredient.proof.map((p, i) => (
-                    <Text key={i} className="font-poppins-medium text-sm text-gray-700">
+                    <Text
+                      key={i}
+                      className="font-poppins-medium text-sm text-gray-700"
+                    >
                       • {p}
                     </Text>
                   ))}

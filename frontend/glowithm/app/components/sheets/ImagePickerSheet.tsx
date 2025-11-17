@@ -2,17 +2,17 @@ import { Text, Modal, Pressable, Image } from "react-native";
 import React from "react";
 import { icons } from "@/constants/icons";
 
-interface ImagePickerModalProps {
+interface ImagePickerSheetProps {
   imagePickerVisible: boolean;
-  handlePickImage: (fromCamera: boolean) => void;
+  handlePickImage: (source: "camera" | "gallery") => void;
   onClose: () => void;
 }
 
-const ImagePickerModal = ({
+const ImagePickerSheet = ({
   imagePickerVisible,
   handlePickImage,
   onClose,
-}: ImagePickerModalProps) => {
+}: ImagePickerSheetProps) => {
   return (
     <Modal
       visible={imagePickerVisible}
@@ -24,7 +24,6 @@ const ImagePickerModal = ({
       <Pressable
         onPress={onClose}
         style={{
-          flex: 1,
           justifyContent: "flex-end",
           position: "absolute",
           top: 0,
@@ -47,7 +46,7 @@ const ImagePickerModal = ({
           }}
         >
           <Pressable
-            onPress={() => handlePickImage(true)}
+            onPress={() => handlePickImage("camera")}
             className="py-4 w-full flex-row items-center"
           >
             <Image source={icons.camera} style={{ marginHorizontal: 8, width: 25, height: 22}} />
@@ -56,7 +55,7 @@ const ImagePickerModal = ({
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => handlePickImage(false)}
+            onPress={() => handlePickImage("gallery")}
             className="py-4 w-full flex-row items-center"
           >
             <Image source={icons.gallery} style={{ marginHorizontal: 8, width: 25, height: 26 }} />
@@ -70,4 +69,4 @@ const ImagePickerModal = ({
   );
 };
 
-export default ImagePickerModal;
+export default ImagePickerSheet;
