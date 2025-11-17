@@ -22,20 +22,33 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
     
     try {
       let pickerResult: ImagePicker.ImagePickerResult;
+
+      const pickerOptions = {
+        allowsEditing: false,
+      };
       if (fromCamera) {
-        pickerResult = await ImagePicker.launchCameraAsync({
-          allowsEditing: true,
-          quality: 1,
-        });
+        pickerResult = await ImagePicker.launchCameraAsync(pickerOptions);
       } else {
-        pickerResult = await ImagePicker.launchImageLibraryAsync({
-          allowsEditing: true,
-          quality: 1,
-        });
+        pickerResult = await ImagePicker.launchImageLibraryAsync(pickerOptions);
       }
 
       if (!pickerResult.canceled && pickerResult.assets?.[0]) {
-        const imageUri = pickerResult.assets[0].uri;
+        const { uri } = pickerResult.assets[0];
+
+        // Fetch file as a blob
+        const uriResponse = await fetch(uri);
+        const blob = await uriResponse.blob();
+
+        // Check MIME type
+        const allowedMimeTypes = ["image/jpeg", "image/png"];
+        if (!allowedMimeTypes.includes(blob.type)) {
+          setErrorMessage("Unsupported image format. Please use JPEG or PNG.");
+          setErrorModalVisible(true);
+          errorOccurredRef.current = true;
+          return;
+        }
+
+        // --- Proceed with analysis ---
         setAnalyzing(true);
         setProgress(0);
         abortController.current = new AbortController();
@@ -46,9 +59,9 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
 
         const formData = new FormData();
         formData.append("file", {
-          uri: imageUri,
-          type: "image/jpeg",
-          name: "skin_image.jpg",
+          uri,
+          type: blob.type,
+          name: `skin_image${blob.type === "image/png" ? ".png" : ".jpg"}`,
         } as any);
 
         const startTime = Date.now();
@@ -59,8 +72,13 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
           signal: abortController.current.signal,
         });
 
-        if (!response.ok)
-          throw new Error(`Prediction failed with status ${response.status}`);
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}));
+          setErrorMessage(data.detail || "Unsupported image format");
+          setErrorModalVisible(true);
+          errorOccurredRef.current = true;
+          return; // stop execution, do not proceed
+        }
 
         const prediction: PredictResponse = await response.json();
         await storePredictionResult(prediction);

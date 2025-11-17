@@ -24,34 +24,21 @@ export default function ClearModal({
       {/* BACKDROP */}
       <Pressable
         onPress={onClose}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "rgba(0,0,0,0.5)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        className="absolute top-0 left-0 right-0 bottom-0 bg-black/40 justify-center items-center"
       >
         {/* MODAL CONTENT */}
         <Pressable
           onPress={(e) => e.stopPropagation()}
+          className="bg-white py-6 gap-4 w-[70%] items-center"
           style={{
-            backgroundColor: "white",
             borderRadius: 12,
-            paddingVertical: 16,
-            gap: 16,
-            width: 300,
-            alignItems: "center",
           }}
         >
           <Image source={icons.clear} className="self-center" style={{  width: 24, height: 25 }} />
 
           {/* Main Text */}
           <Text
-            className="text-inactive font-poppins-medium text-md text-center"
+            className="text-primary font-poppins-medium text-md text-center"
             style={{ width: 240 }}
           >
             Are you sure you want to empty your history? This cannot be undone.

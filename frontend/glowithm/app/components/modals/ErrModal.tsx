@@ -34,14 +34,9 @@ export default function ErrModal({ visible, onClose, error }: ErrModalProps) {
         {/* MODAL CONTENT */}
         <Pressable
           onPress={(e) => e.stopPropagation()}
+          className="bg-white py-5 w-[70%] gap-4 items-center"
           style={{
-            backgroundColor: "white",
             borderRadius: 12,
-            paddingVertical: 24,
-            paddingHorizontal: 20,
-            width: 320,
-            gap: 16,
-            alignItems: "center",
           }}
         >
           <Image
@@ -52,23 +47,21 @@ export default function ErrModal({ visible, onClose, error }: ErrModalProps) {
           <Text className="font-poppins-semibold text-lg text-primary">
             Something went wrong.
           </Text>
-          <Text className="text-inactive font-poppins-regular text-sm text-center">
+          <Text className="text-inactive font-poppins-regular text-sm text-center px-8">
             {error}
           </Text>
 
           <Pressable
             onPress={onClose}
             style={{
-              backgroundColor: "#22C55E",
-              borderRadius: 8,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              marginTop: 8,
-              width: "60%",
+              borderTopColor: "#E5E7EB",
+              borderTopWidth: 1,
+              paddingTop: 10,
+              width: "100%",
             }}
           >
-            <Text className="text-white font-poppins-medium text-center text-sm">
-              Try again
+            <Text className="text-accent-red text-center text-sm font-poppins-medium">
+              Try Again
             </Text>
           </Pressable>
         </Pressable>
