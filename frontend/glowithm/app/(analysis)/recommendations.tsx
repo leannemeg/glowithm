@@ -1,4 +1,4 @@
-import Button from "@/app/components/Button";
+import Button from "@/app/components/ui/Button";
 import IngredientDetailModal from "@/app/components/modals/IngredientDetailModal";
 import SearchBar from "@/app/components/SearchBar";
 import TabNavigation from "@/app/components/TabNavigation";
@@ -20,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { EmptyState } from "../components/EmptyState";
 import IngredientCategories from "../components/IngredientCategories";
 import { LoadingScreen } from "../components/LoadingScreen";
+import NoIngredient from "../components/NoIngredient";
 
 export default function Recommendations() {
   const { result, loading } = usePredictionResult();
@@ -32,6 +33,7 @@ export default function Recommendations() {
   >({});
   const [selectedIngredient, setSelectedIngredient] =
     useState<IngredientRead | null>(null);
+  const [noMatch, setNoMatch] = useState(false);
 
   const toggleSection = (section: string) => {
     setExpandedSections((prev) => ({
@@ -42,6 +44,28 @@ export default function Recommendations() {
 
   if (loading) return <LoadingScreen />;
   if (!result) return <EmptyState title="No Recommendations Found" />;
+
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+
+    const trimmed = text.trim().toLowerCase();
+
+    if (trimmed === "") {
+      setNoMatch(false);
+      return;
+    }
+
+    const allIngredients = [
+      ...Object.values(result.recommended).flat(),
+      ...Object.values(result.avoided).flat(),
+    ];
+
+    const match = allIngredients.find((ing) =>
+      ing.name.toLowerCase().includes(trimmed)
+    );
+
+    setNoMatch(!match);
+  };
 
   return (
     <ImageBackground
@@ -66,7 +90,7 @@ export default function Recommendations() {
         <View className="px-6" style={{ marginTop: 20 }}>
           <SearchBar
             value={searchQuery}
-            onChangeText={setSearchQuery}
+            onChangeText={handleSearch}
             containerStyle="bg-white rounded-full px-4 flex-row items-center"
           />
         </View>
@@ -117,6 +141,8 @@ export default function Recommendations() {
             visible={!!selectedIngredient}
             onClose={() => setSelectedIngredient(null)}
           />
+
+          {noMatch && <NoIngredient searchQuery={searchQuery} />}
 
           {/* Action Buttons */}
           <View className="flex-row justify-between mb-8 space-x-4">

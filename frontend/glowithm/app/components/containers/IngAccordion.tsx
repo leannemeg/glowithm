@@ -33,10 +33,10 @@ const CATEGORY_MAPPINGS: Record<string, string> = {
   "fragrance_&_essential_oils": "fragrance",
 
   // Surfactants
-  "gentle surfactants": "gsurfactant",
-  gentle_surfactants: "gsurfactant",
-  "harsh surfactants": "hsurfactant",
-  harsh_surfactants: "hsurfactant",
+  "gentle surfactants": "gentle_s",
+  gentle_surfactants: "gentle_s",
+  "harsh surfactants & detergents": "harsh_s",
+  "harsh_surfactants_&_detergents": "harsh_s",
 
   // UV Protection
   "uv filters": "uv",

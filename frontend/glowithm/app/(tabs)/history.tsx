@@ -11,7 +11,7 @@ import { icons } from "@/constants/icons";
 import ClearModal from "../components/modals/ClearModal";
 import { images } from "@/constants/images";
 
-const History = () => {
+export default function History() {
   const [clearModalVisible, setClearModalVisible] = useState(false);
 
   const handleDelete = () => {
@@ -25,9 +25,7 @@ const History = () => {
   return (
     <ImageBackground source={images.bg2} className="flex-1" resizeMode="cover">
       <SafeAreaView className="flex-1">
-        <View
-          className="flex-row w-full items-center justify-between"
-          style={{ paddingHorizontal: 20, paddingTop: 10 }}
+        <View className="flex-row w-full items-center justify-between px-5 py-2"
         >
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary">
             Analysis History
@@ -38,7 +36,6 @@ const History = () => {
               style={{ width: 20, height: 21, marginBottom: 5 }}
             />
           </TouchableOpacity>
-          <View className="w-6 h-6" />
         </View>
         <ClearModal
           clearModalVisible={clearModalVisible}
@@ -49,5 +46,3 @@ const History = () => {
     </ImageBackground>
   );
 };
-
-export default History;

@@ -14,8 +14,8 @@ import emollient from '@/assets/icons/emollient.png';
 import exfoliant from '@/assets/icons/exfoliant.png';
 import fragrance from '@/assets/icons/fragrance.png';
 import gallery from '@/assets/icons/gallery.png';
-import gsurfactant from '@/assets/icons/gentle-s.png';
-import hsurfactant from '@/assets/icons/harsh-s.png';
+import gentle_s from '@/assets/icons/gentle-s.png';
+import harsh_s from '@/assets/icons/harsh-s.png';
 import history from '@/assets/icons/history.png';
 import home from '@/assets/icons/home.png';
 import hydrator from '@/assets/icons/hydrator.png';
@@ -50,12 +50,12 @@ export const icons = {
     exfoliant,
     emollient,
     fragrance,
-    gsurfactant,
+    gentle_s,
     hydrator,
     soother,
     uv,
     alcohol,
-    hsurfactant,
+    harsh_s,
     comedogenic,
     clear,
     trash,

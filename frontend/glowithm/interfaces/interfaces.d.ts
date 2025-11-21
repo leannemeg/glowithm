@@ -30,3 +30,9 @@ export interface PredictResponse {
 }
 
 export type IngredientSearchResponse = IngredientRead[];
+
+export interface IngredientExplanation {
+  ingredient: string;
+  explanation: string;
+  is_verified: boolean;
+}

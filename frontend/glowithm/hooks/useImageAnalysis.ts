@@ -65,7 +65,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
         } as any);
 
         const startTime = Date.now();
-        const response = await fetch("http://192.168.1.28:8000/predict", {
+        const response = await fetch(`http://192.168.1.28:8000/predict`, {
           method: "POST",
           body: formData,
           headers: { Accept: "application/json" },

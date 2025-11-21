@@ -3,7 +3,7 @@ import { ImageBackground, Image, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants/images";
 import { router } from "expo-router";
-import Button from "./Button";
+import Button from "./ui/Button";
 
 export const EmptyState = ({
   buttonText = "Go Home",
@@ -23,7 +23,7 @@ export const EmptyState = ({
         title={buttonText}
         onPress={buttonAction || (() => router.replace("/(tabs)/home"))}
         size="small"
-        icon="primary"
+        icon="default"
       />
     </SafeAreaView>
   </ImageBackground>

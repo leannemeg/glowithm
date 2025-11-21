@@ -1,19 +1,19 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import { Text, View } from "react-native";
-import Entypo from "@expo/vector-icons/Entypo";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const TabIcon = ({ focused, title }: any) => {
   const color = focused ? "#00E576" : "#434343";
   const renderIcon = () => {
-    if (title === "History")
-      return <FontAwesome5 name="history" size={32} color={color} />;
+    if (title === "History") return <MaterialIcons name="history" size={40} color={color} className="mt-[-1]"/>;
 
-    if (title === "Settings")
-      return <Ionicons name="settings-sharp" size={32} color={color} />;
+    if (title === "Settings") return <MaterialIcons name="settings" size={38} color={color} />;
 
-    return <Entypo name="home" size={36} color={color} />;
+    if (title === "Chat") return <MaterialCommunityIcons name="star-four-points-circle-outline" size={38} color={color} className=""/>
+
+    return <MaterialCommunityIcons name="home-variant-outline" size={38} color={color} />;
   };
 
   return (
@@ -24,7 +24,6 @@ const TabIcon = ({ focused, title }: any) => {
           focused ? "text-active" : "text-inactive"
         }`}
       >
-        {title}
       </Text>
     </View>
   );
@@ -44,6 +43,16 @@ const _Layout = () => {
           title: "Home",
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} title="Home" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          headerShown: false,
+          title: "Chat",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} title="Chat" />
           ),
         }}
       />

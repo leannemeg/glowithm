@@ -1,6 +1,8 @@
 import { IngredientRead } from "@/interfaces/interfaces";
 import React from "react";
-import { Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Modal, Pressable, ScrollView, Text, View, Image } from "react-native";
+import { useIngredientExplain } from "@/hooks/useIngredientExplain";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 interface IngredientDetailModalProps {
   ingredient: IngredientRead | null;
@@ -13,6 +15,10 @@ export default function IngredientDetailModal({
   visible,
   onClose,
 }: IngredientDetailModalProps) {
+  const { aiExplanation, loadingExplain } = useIngredientExplain(
+    ingredient?.name
+  );
+
   return (
     <Modal
       visible={visible}
@@ -31,9 +37,7 @@ export default function IngredientDetailModal({
             className="bg-white rounded-xl px-6 pt-6 pb-8 w-[85%] h-[70%] "
           >
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text
-                className="font-poppins-semibold text-xl text-primary"
-              >
+              <Text className="font-poppins-semibold text-xl text-primary">
                 {ingredient.name}
               </Text>
 
@@ -43,11 +47,34 @@ export default function IngredientDetailModal({
                 </Text>
               )}
 
+              <View className="my-4 p-2 bg-indigo-200 rounded-xl">
+                <View className="flex-row items-center">
+                  <MaterialCommunityIcons
+                    name="star-four-points"
+                    size={18}
+                    color="#4663D8"
+                  />
+                  <Text className="text-indigo-600 font-poppins-semibold text-md mt-1 ml-2">
+                    Explained by AI
+                  </Text>
+                </View>
+
+                <View className="p-1">
+                  {loadingExplain ? (
+                    <Text className="text-indigo-700 font-poppins-regular text-sm">
+                      Generating explanation...
+                    </Text>
+                  ) : (
+                    <Text className="text-indigo-700 font-poppins-regular text-sm">
+                      {aiExplanation}
+                    </Text>
+                  )}
+                </View>
+              </View>
+
               {ingredient.quickfacts?.length > 0 && (
                 <View className="mb-3">
-                  <Text
-                    className="font-poppins-semibold text-lg text-primary"
-                  >
+                  <Text className="font-poppins-semibold text-lg text-primary">
                     Quick Facts
                   </Text>
                   {ingredient.quickfacts.map((q, i) => (
@@ -63,9 +90,7 @@ export default function IngredientDetailModal({
 
               {ingredient.details && (
                 <View className="mb-3">
-                  <Text
-                    className="font-poppins-semibold text-lg text-primary"
-                  >
+                  <Text className="font-poppins-semibold text-lg text-primary">
                     Details
                   </Text>
                   <Text className="font-poppins-regular text-sm text-gray-800 mb-3">
@@ -76,9 +101,7 @@ export default function IngredientDetailModal({
 
               {ingredient.proof?.length > 0 && (
                 <View className="mt-3">
-                  <Text
-                    className="font-poppins-semibold text-lg text-primary"
-                  >
+                  <Text className="font-poppins-semibold text-lg text-primary">
                     Sources
                   </Text>
                   {ingredient.proof.map((p, i) => (
@@ -91,6 +114,16 @@ export default function IngredientDetailModal({
                   ))}
                 </View>
               )}
+              <View className="flex-row items-center">
+                <Image
+                  source={require("@/assets/images/inci-logo.png")}
+                  className="w-8 h-8 mt-4 opacity-50 mr-2"
+                />
+                <Image
+                  source={require("@/assets/images/google-gemini-logo.png")}
+                  className="w-20 h-4 mt-4 opacity-50"
+                />
+              </View>
             </ScrollView>
           </Pressable>
         )}

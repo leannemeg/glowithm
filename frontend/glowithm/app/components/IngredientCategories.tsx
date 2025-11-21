@@ -1,4 +1,4 @@
-import IngAccordion from "@/app/components/IngAccordion";
+import IngAccordion from "@/app/components/containers/IngAccordion";
 import { IngredientRead } from "@/interfaces/interfaces";
 import React from "react";
 import { View } from "react-native";

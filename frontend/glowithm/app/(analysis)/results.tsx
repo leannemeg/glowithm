@@ -12,7 +12,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import { EmptyState } from "../components/EmptyState";
 import { LoadingScreen } from "../components/LoadingScreen";
 
@@ -46,7 +46,7 @@ export default function Results() {
           style={{ paddingHorizontal: 20, paddingTop: 10 }}
         >
           <TouchableOpacity onPress={handleRetry}>
-            <Image source={icons.back} style={{ width: 12, height: 20 }}/>
+            <Image source={icons.back} style={{ width: 12, height: 20 }} />
           </TouchableOpacity>
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary">
             Analysis Results
@@ -74,8 +74,8 @@ export default function Results() {
             size="default"
           />
           <Text className="font-poppins-medium text-sm text-white text-center mt-4">
-            Not satisfied with the results?
-            Go back and scan your face again or try a different photo.
+            Not satisfied with the results? Go back and scan your face again or
+            try a different photo.
           </Text>
         </View>
       </SafeAreaView>

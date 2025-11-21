@@ -4,6 +4,7 @@ import { icons } from "@/constants/icons";
 
 interface SearchBarProps {
   value: string;
+  placeholder?: string;
   onChangeText: (text: string) => void;
   showClear?: boolean;
   containerStyle?: string;
@@ -12,6 +13,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({
   value,
+  placeholder = "Search ingredients...",
   onChangeText,
   showClear = true,
   containerStyle = "bg-white rounded-full flex-row items-center",
@@ -28,6 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         value={value}
         onChangeText={onChangeText}
         className={inputStyle}
+        placeholder={placeholder}
         placeholderTextColor="#9CA3AF"
       />
       {showClear && value.length > 0 && (
