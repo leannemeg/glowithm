@@ -1,9 +1,10 @@
-from fastapi import APIRouter, File, UploadFile, Depends, HTTPException
+from fastapi import APIRouter, File, UploadFile, Depends
 from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.services.skin_predictor import predict_skin
 from app.schemas.predict import PredictResponse
 from app.crud.ingredient import ingredients_for_skin_grouped
+from app.utils.image_validator import validate_image
 
 router = APIRouter(prefix="/predict")
 
@@ -13,9 +14,9 @@ async def predict_endpoint(
     db: Session = Depends(get_db)
 ):
     img_bytes = await file.read()
-    pred, err = predict_skin(img_bytes)
-    if err:
-        raise HTTPException(status_code=400, detail=err)
+    
+    validate_image(img_bytes)
+    pred = predict_skin(img_bytes)
 
     skin = pred["prediction"]
     recs_grouped, avoid_grouped = ingredients_for_skin_grouped(db, skin)

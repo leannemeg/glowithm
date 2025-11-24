@@ -6,6 +6,7 @@ import {
   setPermissionGranted,
 } from "@/utils/permissionStorage";
 import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
 import React, { useState } from "react";
 import {
   Image,
@@ -24,7 +25,7 @@ import PermissionModal from "../components/modals/PermissionModal";
 import Button from "../components/ui/Button";
 
 export default function Home() {
-  const [visible, setVisible] = useState(false);
+  const [instructionsModalVisible, setInstructionsModalVisible] = useState(false);
   const [permissionModalVisible, setPermissionModalVisible] = useState(false);
   const [deniedModalVisible, setDeniedModalVisible] = useState(false);
   const [imagePickerVisible, setImagePickerVisible] = useState(false);
@@ -52,11 +53,10 @@ export default function Home() {
 
   const handleAllow = async () => {
     setPermissionModalVisible(false);
-    const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
-    const mediaPermission =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
+    const { status: mediaStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (cameraPermission.granted && mediaPermission.granted) {
+    if (cameraStatus === 'granted' && mediaStatus === 'granted') {
       await setPermissionGranted();
       setImagePickerVisible(true);
     } else {
@@ -72,17 +72,17 @@ export default function Home() {
   return (
     <ImageBackground source={images.bg1} className="flex-1" resizeMode="cover">
       <SafeAreaView className="flex-1 justify-between">
-        <View className="flex-1 justify-end items-center px-6 ">
+        <View className="flex-1 justify-end items-center px-6">
           <Image
             source={images.logoName}
             style={{ width: 300, height: 60, marginBottom: 10 }}
           />
-          <Text className="text-md text-inactive font-poppins-medium mb-2 text-center px-4">
+          <Text className="text-md text-inactive font-poppins-medium mb-3 text-center px-4">
             Discover your skin type and get personalized ingredient
             recommendations with our AI-powered analysis.
           </Text>
-          <Text className="text-sm text-inactive font-poppins-regular text-center px-10 mb-2">
-            By proceeding, you agree to our Terms of Service and Privacy Policy.
+          <Text className="text-xs text-inactive font-poppins-regular text-center px-10 mb-2">
+            By proceeding, you agree to our Terms and Conditions.
             See settings.
           </Text>
           <Button
@@ -97,17 +97,17 @@ export default function Home() {
           </Text>
         </View>
 
-        <TouchableOpacity onPress={() => setVisible(true)}>
+        <TouchableOpacity onPress={() => setInstructionsModalVisible(true)}>
           <Image
             source={icons.question_line}
-            className="absolute left-2 top-[-10]"
+            className="absolute left-2"
             style={{ width: 26, height: 26 }}
           />
         </TouchableOpacity>
 
         <InstructionsModal
-          isVisible={visible}
-          onClose={() => setVisible(false)}
+          instructionsModalVisible={instructionsModalVisible}
+          onClose={() => setInstructionsModalVisible(false)}
         />
         <PermissionModal
           permissionModalVisible={permissionModalVisible}

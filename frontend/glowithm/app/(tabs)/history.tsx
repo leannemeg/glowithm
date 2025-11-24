@@ -27,7 +27,7 @@ export default function History() {
       <SafeAreaView className="flex-1">
         <View className="flex-row w-full items-center justify-between px-5 py-2"
         >
-          <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary">
+          <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary pl-4">
             Analysis History
           </Text>
           <TouchableOpacity onPress={() => setClearModalVisible(true)}>

@@ -1,34 +1,21 @@
-import os
 import io
 import numpy as np
 from PIL import Image
 import tensorflow as tf
 from keras.applications.mobilenet_v2 import preprocess_input
 from ..core.config import MODEL_PATH, IMG_SIZE, LABELS
-from fastapi import HTTPException
 
 # load model once
 model = tf.keras.models.load_model(MODEL_PATH)
 
 def preprocess_image(image_bytes: bytes):
-    try:
-        img = Image.open(io.BytesIO(image_bytes))
-        img_format = img.format
-        
-        if img_format not in ["JPEG", "PNG"]:
-            raise HTTPException(status_code=400, detail=f"Unsupported image format: {img.format}")
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Image unreadable: {e}")
-    
-    img = img.convert("RGB")
+    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     img = img.resize((IMG_SIZE, IMG_SIZE))
     arr = preprocess_input(np.array(img).astype("float32"))
-    return np.expand_dims(arr, 0), None
+    return np.expand_dims(arr, 0)
 
 def predict_skin(image_bytes: bytes):
-    arr, err = preprocess_image(image_bytes)
-    if err:
-        return None, err
+    arr = preprocess_image(image_bytes)
     preds = model.predict(arr)[0]
     top_idx = int(np.argmax(preds))
     
@@ -43,4 +30,4 @@ def predict_skin(image_bytes: bytes):
                 "confidence_display": f"{p*100:.1f}%"
             } for l, p in zip(LABELS, preds)
         ]
-    }, None
+    }

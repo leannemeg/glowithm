@@ -129,8 +129,8 @@ export default function Chat() {
             <TextInput
               value={input}
               onChangeText={setInput}
-              placeholder="Ask something..."
-              className="flex-1 font-poppins-regular text-gray-800 py-1"
+              placeholder="Ask about an ingredient..."
+              className="flex-1 font-poppins-regular text-gray-800 px-2 py-1"
               placeholderTextColor="#b0b0b0"
             />
           </View>

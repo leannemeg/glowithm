@@ -3,6 +3,7 @@ import * as ImagePicker from "expo-image-picker";
 import { storePredictionResult } from "@/utils/analysisStorage";
 import { PredictResponse } from "@/interfaces/interfaces";
 import { router } from "expo-router";
+import { Camera } from "expo-camera";
 
 export const useImageAnalysis = (options?: { onStart?: () => void }) => {
   const [analyzing, setAnalyzing] = useState(false);
@@ -15,21 +16,31 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
   const cancelledRef = useRef(false);
   const errorOccurredRef = useRef(false);
 
+  const requestPermissions = async (): Promise<boolean> => {
+    const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
+    const { status: mediaStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    console.log("Camera:", cameraStatus, "Media:", mediaStatus);
+    return cameraStatus === "granted" && mediaStatus === "granted";
+  };
+
   const handlePickImage = async (source: "camera" | "gallery") => {
     options?.onStart?.();
     cancelledRef.current = false;
-    const fromCamera = source === "camera";
+
+    const granted = await requestPermissions();
+    if (!granted) {
+      setErrorMessage("Camera or media permissions are required.");
+      setErrorModalVisible(true);
+      return;
+    }
     
     try {
       let pickerResult: ImagePicker.ImagePickerResult;
 
-      const pickerOptions = {
-        allowsEditing: false,
-      };
-      if (fromCamera) {
-        pickerResult = await ImagePicker.launchCameraAsync(pickerOptions);
+      if (source === "camera") {
+        pickerResult = await ImagePicker.launchCameraAsync({ allowsEditing: false });
       } else {
-        pickerResult = await ImagePicker.launchImageLibraryAsync(pickerOptions);
+        pickerResult = await ImagePicker.launchImageLibraryAsync({ allowsEditing: false, mediaTypes: 'images' });
       }
 
       if (!pickerResult.canceled && pickerResult.assets?.[0]) {
@@ -64,7 +75,6 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
           name: `skin_image${blob.type === "image/png" ? ".png" : ".jpg"}`,
         } as any);
 
-        const startTime = Date.now();
         const response = await fetch(`http://192.168.1.28:8000/predict`, {
           method: "POST",
           body: formData,
@@ -82,11 +92,6 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
 
         const prediction: PredictResponse = await response.json();
         await storePredictionResult(prediction);
-
-        const MIN_ANALYSIS_TIME = 2000;
-        const elapsed = Date.now() - startTime;
-        if (elapsed < MIN_ANALYSIS_TIME)
-          await new Promise((res) => setTimeout(res, MIN_ANALYSIS_TIME - elapsed));
 
         setProgress(100);
       }

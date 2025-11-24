@@ -3,17 +3,17 @@ import React from "react";
 import { icons } from "@/constants/icons";
 
 interface InstructionsModalProps {
-  isVisible: boolean;
+  instructionsModalVisible: boolean;
   onClose: () => void;
 }
 
 export default function InstructionsModal({
-  isVisible,
+  instructionsModalVisible,
   onClose,
 }: InstructionsModalProps) {
   return (
     <Modal
-      visible={isVisible}
+      visible={instructionsModalVisible}
       transparent
       statusBarTranslucent
       animationType="fade"
@@ -39,17 +39,20 @@ export default function InstructionsModal({
           style={{ borderRadius: 12, padding: 16, gap: 16, width: 320 }}
           onPress={(e) => e.stopPropagation()}
         >
-          <Image
-            source={icons.question_fill}
-            className="self-center w-8 h-8"
-          />
+          <Image source={icons.question_fill} className="self-center w-8 h-8" />
           <Text className="text-inactive font-poppins-regular text-sm">
-            Take a <Text className="font-poppins-bold">clear</Text> photo of your face - good lighting helps the
-            model to analyze better.
+            Take a <Text className="font-poppins-bold">clear</Text> photo of
+            your face - good lighting, no obstructions, and a focused camera
+            helps the model to analyze better.
           </Text>
           <Text className="text-inactive font-poppins-regular text-sm">
-            For more accurate results, remove <Text className="font-poppins-bold">makeup</Text>, <Text className="font-poppins-bold">camera filters</Text>, 
-            and <Text className="font-poppins-bold">avoid analyzing after a skincare routine</Text>.
+            For more accurate results, remove{" "}
+            <Text className="font-poppins-bold">makeup</Text>,{" "}
+            <Text className="font-poppins-bold">camera filters</Text>, and{" "}
+            <Text className="font-poppins-bold">
+              avoid analyzing after a skincare routine, a shower, or a workout
+            </Text>
+            .
           </Text>
           <Text className="text-inactive font-poppins-regular text-sm">
             Wait a few seconds while the model analyzes your skin type.
