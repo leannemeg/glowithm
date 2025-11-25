@@ -1,5 +1,5 @@
 export const explainIngredient = async (ingredient: string) => {
-  const res = await fetch(`http://192.168.1.28:8000/ingredients/explain`, {
+  const res = await fetch(`http://192.168.1.138:8000/ingredients/explain`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ingredient }),
@@ -9,7 +9,7 @@ export const explainIngredient = async (ingredient: string) => {
 };
 
 export const chatWithAI = async (message: string) => {
-  const res = await fetch(`http://192.168.1.28:8000/chat`, {
+  const res = await fetch(`http://192.168.1.138:8000/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message }),

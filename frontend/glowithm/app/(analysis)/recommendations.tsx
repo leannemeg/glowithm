@@ -21,9 +21,11 @@ import { EmptyState } from "../components/EmptyState";
 import IngredientCategories from "../components/IngredientCategories";
 import { LoadingScreen } from "../components/LoadingScreen";
 import NoIngredient from "../components/NoIngredient";
+import useHistory from "@/hooks/useHistory";
 
 export default function Recommendations() {
   const { result, loading } = usePredictionResult();
+  const { savePrediction } = useHistory();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"recommended" | "avoided">(
     "recommended"
@@ -158,7 +160,17 @@ export default function Recommendations() {
             <View className="flex-1 ml-2">
               <Button
                 title="Save to History"
-                onPress={() => router.push("/(tabs)/history")}
+                onPress={async () => {
+                  if (!result) return;
+
+                  try {
+                    await savePrediction(result);
+                  } catch (error) {
+                    console.error("Failed to save history entry:", error);
+                  }
+
+                  router.push("/(tabs)/history");
+                }}
                 size="small"
                 icon="save"
               />

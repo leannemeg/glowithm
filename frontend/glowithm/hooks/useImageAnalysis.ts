@@ -75,7 +75,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
           name: `skin_image${blob.type === "image/png" ? ".png" : ".jpg"}`,
         } as any);
 
-        const response = await fetch(`http://192.168.1.28:8000/predict`, {
+        const response = await fetch(`http://192.168.1.138:8000/predict`, {
           method: "POST",
           body: formData,
           headers: { Accept: "application/json" },
