@@ -122,7 +122,7 @@ export default function Chat() {
 
         {/* Input */}
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           className="px-4 pb-4 flex-row items-center"
         >
           <View className="flex-row bg-white p-3 rounded-full flex-1 shadow-sm border border-gray-200">

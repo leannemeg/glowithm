@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import { Camera } from "expo-camera";
 
 export const useImageAnalysis = (options?: { onStart?: () => void }) => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
   const [analyzing, setAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
@@ -19,7 +20,6 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
   const requestPermissions = async (): Promise<boolean> => {
     const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
     const { status: mediaStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    console.log("Camera:", cameraStatus, "Media:", mediaStatus);
     return cameraStatus === "granted" && mediaStatus === "granted";
   };
 
@@ -75,7 +75,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
           name: `skin_image${blob.type === "image/png" ? ".png" : ".jpg"}`,
         } as any);
 
-        const response = await fetch(`http://192.168.1.138:8000/predict`, {
+        const response = await fetch(`${apiUrl}/predict`, {
           method: "POST",
           body: formData,
           headers: { Accept: "application/json" },

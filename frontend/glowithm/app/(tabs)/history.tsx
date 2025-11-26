@@ -46,19 +46,17 @@ export default function History() {
               style={{ width: 20, height: 21, marginBottom: 5 }}
             />
           </TouchableOpacity>
-          <View className="mt-4 px-4">
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {history.length === 0 ? (
-                <Text className="text-center text-inactive">
-                  No history yet
-                </Text>
-              ) : (
-                history.map((entry) => (
-                  <HistoryContainer key={entry.id} entry={entry} />
-                ))
-              )}
-            </ScrollView>
-          </View>
+        </View>
+        <View className="mt-4 px-4">
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {history.length === 0 ? (
+              <Text className="text-center text-inactive">No history yet</Text>
+            ) : (
+              history.map((entry) => (
+                <HistoryContainer key={entry.id} entry={entry} />
+              ))
+            )}
+          </ScrollView>
         </View>
         <ClearModal
           clearModalVisible={clearModalVisible}
