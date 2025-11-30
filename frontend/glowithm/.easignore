@@ -1,0 +1,40 @@
+# Node modules (reinstalled during build)
+node_modules
+**/node_modules
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+*.log.*
+
+# Local config files
+.env
+.env.local
+.env.*.local
+*.local
+
+# Expo cache and build folders
+.expo
+.expo-shared
+.expo-dev-client
+dist
+build
+
+# Metro bundler cache
+.expo/metro-cache
+.cache
+
+# VSCode or IDE folders
+.vscode
+.idea
+
+# macOS / Windows system files
+.DS_Store
+Thumbs.db
+
+# Yarn / NPM lock files if not needed (optional)
+# yarn.lock
+# package-lock.json

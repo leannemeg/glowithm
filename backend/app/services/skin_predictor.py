@@ -1,3 +1,4 @@
+import gc
 import io
 import numpy as np
 from PIL import Image
@@ -18,6 +19,11 @@ def predict_skin(image_bytes: bytes):
     arr = preprocess_image(image_bytes)
     preds = model.predict(arr)[0]
     top_idx = int(np.argmax(preds))
+    
+    # Clean up
+    del arr
+    del preds
+    gc.collect()
     
     return {
         "prediction": LABELS[top_idx],

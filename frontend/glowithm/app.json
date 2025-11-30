@@ -28,14 +28,21 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE"]
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE"
+      ],
+      "package": "com.leannemeg.glowithm",
+      "versionCode": 1
     },
     "web": {
       "output": "static",
       "favicon": "./assets/images/logo.png"
     },
     "plugins": [
-      ["expo-router"], 
+      [
+        "expo-router"
+      ],
       [
         "expo-splash-screen",
         {
@@ -64,6 +71,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4d61dc73-1250-4e50-8f10-c6c6f04e9344"
+      }
     }
   }
 }
