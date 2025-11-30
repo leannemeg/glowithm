@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "icon": "./assets/images/ios-light.png",
+      "icon": {
+        "light": "./assets/images/ios-light.png",
+        "dark": "./assets/images/ios-dark.png"
+      },
       "infoPlist": {
         "NSCameraUsageDescription": "Allow Glowithm to access your camera",
         "NSPhotoLibraryUsageDescription": "Allow Glowithm to access your photo library"
@@ -19,7 +22,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#D9F19D"
+        "backgroundColor": "#D9F19D",
+        "windowSoftInputMode": "adjustResize",
+        "softwareKeyboardLayoutMode": "resize"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,

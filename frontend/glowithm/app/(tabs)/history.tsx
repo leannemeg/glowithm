@@ -41,7 +41,7 @@ export default function History() {
 
   return (
       <SafeAreaView className="flex-1 bg-green-100">
-        <View className="flex-row w-full items-center justify-between px-5 py-2">
+        <View className="flex-row w-full items-center justify-between px-5 py-3">
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary pl-4">
             Analysis History
           </Text>
@@ -61,7 +61,7 @@ export default function History() {
         <View className="mt-4 px-4">
           <ScrollView showsVerticalScrollIndicator={false}>
             {history.length === 0 ? (
-              <Text className="text-center text-inactive">No history yet</Text>
+              <Text className="text-center text-inactive mt-8">No history yet</Text>
             ) : (
               history.map((entry) => (
                 <TouchableOpacity

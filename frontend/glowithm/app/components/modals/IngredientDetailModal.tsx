@@ -1,6 +1,7 @@
 import { IngredientRead } from "@/interfaces/interfaces";
 import React from "react";
-import { Modal, Pressable, ScrollView, Text, View, Image } from "react-native";
+import { Modal, Pressable, Text, View, Image } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { useIngredientExplain } from "@/hooks/useIngredientExplain";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
