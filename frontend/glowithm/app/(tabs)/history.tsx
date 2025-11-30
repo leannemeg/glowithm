@@ -11,12 +11,26 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import ClearModal from "../components/modals/ClearModal";
 import { images } from "@/constants/images";
-import useHistory from "@/hooks/useHistory";
+import useHistory, { HistoryEntry } from "@/hooks/useHistory";
 import HistoryContainer from "../components/containers/HistoryContainer";
+import DeleteEntryModal from "../components/modals/DeleteEntryModal";
 
 export default function History() {
-  const { history, clearHistory } = useHistory();
+  const { history, clearHistory, removeEntry } = useHistory();
   const [clearModalVisible, setClearModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState<HistoryEntry | null>(null);
+
+  const handleDeleteEntry = () => {
+    if (selectedEntry) removeEntry(selectedEntry.id);
+    setDeleteModalVisible(false);
+    setSelectedEntry(null);
+  };
+
+  const handleCancelDeleteEntry = () => {
+    setDeleteModalVisible(false);
+    setSelectedEntry(null);
+  };
 
   const handleDelete = () => {
     clearHistory();
@@ -53,11 +67,26 @@ export default function History() {
               <Text className="text-center text-inactive">No history yet</Text>
             ) : (
               history.map((entry) => (
-                <HistoryContainer key={entry.id} entry={entry} />
+                <TouchableOpacity
+                  key={entry.id}
+                  activeOpacity={0.8}
+                  onLongPress={() => {
+                    setSelectedEntry(entry);
+                    setDeleteModalVisible(true);
+                  }}
+                >
+                  <HistoryContainer key={entry.id} entry={entry} />
+                </TouchableOpacity>
               ))
             )}
           </ScrollView>
         </View>
+        <DeleteEntryModal
+          deleteModalVisible={deleteModalVisible}
+          entry={selectedEntry}
+          onDelete={handleDeleteEntry}
+          onClose={handleCancelDeleteEntry}
+        />
         <ClearModal
           clearModalVisible={clearModalVisible}
           onDelete={handleDelete}

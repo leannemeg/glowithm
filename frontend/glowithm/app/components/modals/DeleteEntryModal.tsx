@@ -1,0 +1,86 @@
+import { Text, Modal, Pressable, Image } from "react-native";
+import React from "react";
+import { icons } from "@/constants/icons";
+
+interface DeleteEntryModalProps {
+  deleteModalVisible: boolean;
+  entry: any;
+  onDelete: () => void;
+  onClose: () => void;
+}
+
+export default function DeleteEntryModal({
+  deleteModalVisible,
+  entry,
+  onDelete,
+  onClose,
+}: DeleteEntryModalProps) {
+  return (
+    <Modal
+      visible={deleteModalVisible}
+      transparent
+      statusBarTranslucent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      {/* BACKDROP */}
+      <Pressable
+        onPress={onClose}
+        className="absolute top-0 left-0 right-0 bottom-0 bg-black/40 justify-center items-center"
+      >
+        {/* MODAL CONTENT */}
+        <Pressable
+          onPress={(e) => e.stopPropagation()}
+          className="bg-white py-6 gap-4 w-[70%] items-center"
+          style={{
+            borderRadius: 12,
+          }}
+        >
+          <Image
+            source={icons.trash}
+            className="self-center"
+            style={{ width: 24, height: 25 }}
+          />
+
+          {/* Main Text */}
+          <Text
+            className="text-primary font-poppins-medium text-md text-center"
+            style={{ width: 240 }}
+          >
+            Are you sure you want to delete this entry ({entry?.dateLabel})?
+            This cannot be undone.
+          </Text>
+
+          {/* OPTIONS */}
+          <Pressable
+            onPress={onDelete}
+            style={{
+              borderTopColor: "#E5E7EB",
+              borderTopWidth: 1,
+              paddingTop: 10,
+              width: "100%",
+            }}
+          >
+            <Text className="text-accent-red text-center text-sm font-poppins-medium">
+              Delete
+            </Text>
+          </Pressable>
+
+          <Pressable
+            style={{
+              borderTopColor: "#E5E7EB",
+              borderTopWidth: 1,
+              paddingTop: 10,
+              width: "100%",
+            }}
+            onPress={onClose}
+          >
+            <Text className="text-inactive text-center text-sm font-poppins-medium">
+              Keep
+            </Text>
+          </Pressable>
+        </Pressable>
+      </Pressable>
+    </Modal>
+  );
+}
