@@ -3,14 +3,12 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ImageBackground,
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import ClearModal from "../components/modals/ClearModal";
-import { images } from "@/constants/images";
 import useHistory, { HistoryEntry } from "@/hooks/useHistory";
 import HistoryContainer from "../components/containers/HistoryContainer";
 import DeleteEntryModal from "../components/modals/DeleteEntryModal";
@@ -42,8 +40,7 @@ export default function History() {
   };
 
   return (
-    <ImageBackground source={images.bg2} className="flex-1" resizeMode="cover">
-      <SafeAreaView className="flex-1">
+      <SafeAreaView className="flex-1 bg-green-100">
         <View className="flex-row w-full items-center justify-between px-5 py-2">
           <Text className="font-poppins-semibold text-lg flex-1 text-center text-primary pl-4">
             Analysis History
@@ -93,6 +90,5 @@ export default function History() {
           onClose={handleKeep}
         />
       </SafeAreaView>
-    </ImageBackground>
   );
 }
