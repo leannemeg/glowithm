@@ -20,12 +20,7 @@ def predict_skin(image_bytes: bytes):
     preds = model.predict(arr)[0]
     top_idx = int(np.argmax(preds))
     
-    # Clean up
-    del arr
-    del preds
-    gc.collect()
-    
-    return {
+    response = {
         "prediction": LABELS[top_idx],
         "confidence": float(preds[top_idx]),  # raw probability
         "confidence_display": f"{preds[top_idx]*100:.1f}%",
@@ -37,3 +32,10 @@ def predict_skin(image_bytes: bytes):
             } for l, p in zip(LABELS, preds)
         ]
     }
+    
+    # Clean up
+    del arr
+    del preds
+    gc.collect()
+
+    return response
