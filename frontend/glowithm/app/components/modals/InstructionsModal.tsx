@@ -40,12 +40,12 @@ export default function InstructionsModal({
           onPress={(e) => e.stopPropagation()}
         >
           <Image source={icons.question_fill} className="self-center w-8 h-8" />
-          <Text className="text-inactive font-poppins-regular text-sm">
+          <Text className="text-inactive font-poppins-regular text-sm text-justify">
             Take a <Text className="font-poppins-bold">clear</Text> photo of
-            your face - good lighting, no obstructions, and a focused camera
+            your face - good lighting and quality with no obstructions
             helps the model to analyze better.
           </Text>
-          <Text className="text-inactive font-poppins-regular text-sm">
+          <Text className="text-inactive font-poppins-regular text-sm text-justify">
             For more accurate results, remove{" "}
             <Text className="font-poppins-bold">makeup</Text>,{" "}
             <Text className="font-poppins-bold">camera filters</Text>, and{" "}
@@ -54,8 +54,8 @@ export default function InstructionsModal({
             </Text>
             .
           </Text>
-          <Text className="text-inactive font-poppins-regular text-sm">
-            Wait a few seconds while the model analyzes your skin type.
+          <Text className="text-inactive font-poppins-regular text-sm text-justify">
+            Please wait while the model analyzes your skin type.
           </Text>
         </Pressable>
       </Pressable>

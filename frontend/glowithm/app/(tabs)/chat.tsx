@@ -83,7 +83,7 @@ export default function Chat() {
           </Text>
         </View>
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={{ flex: 1, justifyContent: "flex-end" }}
           className="px-6"
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 15 : 15}
@@ -117,7 +117,7 @@ export default function Chat() {
               </View>
             )}
           </ScrollView>
-          <View className="flex-row items-center bg-white p-1.5 rounded-full shadow-sm border border-gray-200">
+          <View className="flex-row self-end items-center bg-white p-1.5 rounded-full shadow-sm border border-gray-200">
             <TextInput
               value={input}
               onChangeText={setInput}

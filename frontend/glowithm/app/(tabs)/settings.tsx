@@ -36,8 +36,7 @@ export default function Settings() {
             necessary to provide skin analysis and recommendations. Facial
             images are analyzed securely on our servers; none are stored
             permanently. We do not sell or share your personal data with third
-            parties. Aggregate or anonymized data may be used to improve our
-            services.
+            parties.
           </Text>
 
           {/* Terms and Conditions */}
@@ -49,9 +48,7 @@ export default function Settings() {
             By using Glowithm, you agree to our terms. The app is for
             informational purposes only and is not a substitute for professional
             medical advice. Misuse of the app or attempts to reverse-engineer it
-            are prohibited. Glowithm reserves the right to suspend accounts
-            violating these terms. All content, AI models, and branding belong
-            to Glowithm.
+            are prohibited. 
           </Text>
 
           {/* Contact Info */}
