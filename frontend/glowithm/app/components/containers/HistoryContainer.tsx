@@ -3,17 +3,27 @@ import React from "react";
 import { icons } from "@/constants/icons";
 import type { HistoryEntry } from "@/hooks/useHistory";
 
-type Props = {
+interface Props {
   entry: HistoryEntry;
-  onPress?: () => void;
-  onRemove?: (id: string) => void;
-};
+  onLongPress?: () => void;
+  delayLongPress?: number;
+}
+
 const capitalize = (s?: string) =>
   s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
 
-const HistoryContainer: React.FC<Props> = ({ entry, onPress }) => {
+export default function HistoryContainer({
+  entry,
+  onLongPress,
+  delayLongPress,
+}: Props) {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8} className="mt-2">
+    <TouchableOpacity
+      activeOpacity={0.8}
+      className="mt-2"
+      onLongPress={onLongPress}
+      delayLongPress={delayLongPress}
+    >
       <View className="flex-row w-full h-22 rounded-xl bg-white justify-between items-center p-4">
         <View className="flex-row justify-start items-center">
           {/* Handle both str and imqge entry.icon */}
@@ -22,7 +32,8 @@ const HistoryContainer: React.FC<Props> = ({ entry, onPress }) => {
               typeof entry.icon === "string"
                 ? (icons as any)[entry.icon]
                 : entry.icon ?? icons.unknown
-            } style={{ width: 54, height: 54 }}
+            }
+            style={{ width: 54, height: 54 }}
           />
           <View className="flex-column ml-3">
             <Text className="font-poppins-medium text-inactive text-md">
@@ -49,6 +60,4 @@ const HistoryContainer: React.FC<Props> = ({ entry, onPress }) => {
       </View>
     </TouchableOpacity>
   );
-};
-
-export default HistoryContainer;
+}

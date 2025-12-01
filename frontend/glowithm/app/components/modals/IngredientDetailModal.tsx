@@ -75,7 +75,7 @@ export default function IngredientDetailModal({
 
               {ingredient.quickfacts?.length > 0 && (
                 <View className="mb-3">
-                  <Text className="font-poppins-semibold text-lg text-primary">
+                  <Text className="font-poppins-semibold text-lg text-primary mb-2">
                     Quick Facts
                   </Text>
                   {ingredient.quickfacts.map((q, i) => (
@@ -91,7 +91,7 @@ export default function IngredientDetailModal({
 
               {ingredient.details && (
                 <View className="mb-3">
-                  <Text className="font-poppins-semibold text-lg text-primary">
+                  <Text className="font-poppins-semibold text-lg text-primary mb-2">
                     Details
                   </Text>
                   <Text className="font-poppins-regular text-sm text-gray-800 mb-3">
@@ -102,7 +102,7 @@ export default function IngredientDetailModal({
 
               {ingredient.proof?.length > 0 && (
                 <View className="mt-3">
-                  <Text className="font-poppins-semibold text-lg text-primary">
+                  <Text className="font-poppins-semibold text-lg text-primary mb-2">
                     Sources
                   </Text>
                   {ingredient.proof.map((p, i) => (
