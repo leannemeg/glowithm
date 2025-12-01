@@ -42,7 +42,7 @@ export default function InstructionsModal({
           <Image source={icons.question_fill} className="self-center w-8 h-8" />
           <Text className="text-inactive font-poppins-regular text-sm text-justify">
             Take a <Text className="font-poppins-bold">clear</Text> photo of
-            your face - good lighting and photo quality with no obstructions
+            your face - a selfie with good lighting and photo quality with no obstructions
             helps the model to analyze better.
           </Text>
           <Text className="text-inactive font-poppins-regular text-sm text-justify">

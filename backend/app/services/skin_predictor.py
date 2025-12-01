@@ -1,15 +1,16 @@
 import os
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
 import io
 import numpy as np
 from PIL import Image
 import tensorflow as tf
 from keras.applications.mobilenet_v2 import preprocess_input
 from ..core.config import MODEL_PATH, IMG_SIZE, LABELS
+from keras import backend as K
+import gc
 
-# load model once
-model = tf.keras.models.load_model(MODEL_PATH)
 
 def preprocess_image(image_bytes: bytes):
     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
@@ -18,8 +19,10 @@ def preprocess_image(image_bytes: bytes):
     return np.expand_dims(arr, 0)
 
 def predict_skin(image_bytes: bytes):
+    # load model per request
+    model = tf.keras.models.load_model(MODEL_PATH)
     arr = preprocess_image(image_bytes)
-    preds = model.predict(arr)[0]
+    preds = model.predict(arr, verbose=0)[0]
     top_idx = int(np.argmax(preds))
     
     response = {
@@ -38,5 +41,7 @@ def predict_skin(image_bytes: bytes):
     # Clean up
     del arr
     del preds
+    K.clear_session()
+    gc.collect()
 
     return response

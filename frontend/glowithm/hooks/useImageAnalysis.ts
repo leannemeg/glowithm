@@ -83,8 +83,18 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
         });
 
         if (!response.ok) {
-          const data = await response.json().catch(() => ({}));
-          setErrorMessage(data.detail || "Unsupported image format");
+          let data = null;
+          try {
+            data = await response.json();
+          } catch (_) {
+            // for network or server issue
+            setErrorMessage("Network or server error. Please try again.");
+            setErrorModalVisible(true);
+            errorOccurredRef.current = true;
+            return;
+          }
+
+          setErrorMessage(data.detail || "Server rejected the image. Please try again.");
           setErrorModalVisible(true);
           errorOccurredRef.current = true;
           return; // stop execution, do not proceed
@@ -98,7 +108,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
     } catch (error: any) {
       if (error.name !== "AbortError") {
         errorOccurredRef.current = true;
-        setErrorMessage(error.message);
+        setErrorMessage("Network error. Please check your connection and try again.");
         setErrorModalVisible(true);
       }
     } finally {
