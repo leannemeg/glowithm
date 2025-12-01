@@ -1,7 +1,6 @@
 import os
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-
 import io
 import numpy as np
 from PIL import Image
