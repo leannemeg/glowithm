@@ -86,7 +86,7 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
           let data = null;
           try {
             data = await response.json();
-          } catch (_) {
+          } catch {
             // for network or server issue
             setErrorMessage("Network or server error. Please try again.");
             setErrorModalVisible(true);
@@ -107,9 +107,10 @@ export const useImageAnalysis = (options?: { onStart?: () => void }) => {
       }
     } catch (error: any) {
       if (error.name !== "AbortError") {
-        errorOccurredRef.current = true;
         setErrorMessage("Network error. Please check your connection and try again.");
         setErrorModalVisible(true);
+        errorOccurredRef.current = true;
+        return;
       }
     } finally {
       if (progressInterval.current) {
