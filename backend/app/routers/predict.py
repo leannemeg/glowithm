@@ -4,7 +4,7 @@ from app.database.session import get_db
 from app.services.skin_predictor import predict_skin
 from app.schemas.predict import PredictResponse
 from app.crud.ingredient import ingredients_for_skin_grouped
-from app.utils.image_validator import validate_image
+from app.utils.validator import validate_and_fix_image
 
 router = APIRouter(prefix="/predict")
 
@@ -15,7 +15,7 @@ async def predict_endpoint(
 ):
     img_bytes = await file.read()
     
-    validate_image(img_bytes)
+    img_bytes = validate_and_fix_image(img_bytes)
     pred = predict_skin(img_bytes)
 
     skin = pred["prediction"]

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -24,6 +24,7 @@ export default function Chat() {
   >([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // Pre-fill input if redirected from NoIngredient
   useEffect(() => {
@@ -35,6 +36,10 @@ export default function Chat() {
       setInput(initialQuestion.trim());
     }
   }, [initialQuestion]);
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  }, [messages, loading]);
 
   const sendMessage = useCallback(
     async (text?: string) => {
@@ -92,6 +97,7 @@ export default function Chat() {
           <ScrollView
             className="flex-1 my-4"
             showsVerticalScrollIndicator={false}
+            ref={scrollViewRef}
           >
             {messages.map((m, i) => (
               <View
