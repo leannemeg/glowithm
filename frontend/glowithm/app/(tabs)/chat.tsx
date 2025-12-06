@@ -15,6 +15,7 @@ import { useLocalSearchParams } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { images } from "@/constants/images";
 import { chatWithAI } from "@/utils/api";
+import Markdown from 'react-native-markdown-display';
 
 export default function Chat() {
   const { initialQuestion } = useLocalSearchParams();
@@ -102,19 +103,24 @@ export default function Chat() {
             {messages.map((m, i) => (
               <View
                 key={i}
-                className={`my-2 max-w-[80%] rounded-2xl px-4 py-3 ${
+                className={`my-2 max-w-[80%] rounded-2xl px-4 py-0.5 ${
                   m.sender === "user"
                     ? "bg-indigo-600 self-end"
                     : "bg-white border border-gray-200 self-start"
                 }`}
               >
-                <Text
-                  className={`font-poppins-regular ${
-                    m.sender === "user" ? "text-white" : "text-gray-800"
-                  }`}
+                <Markdown
+                  style={{
+                    body: {
+                      fontFamily: 'Poppins-Regular',
+                      color: m.sender === "user" ? 'white' : '#1F2937',
+                    },
+                    strong: { fontFamily: 'Poppins-Bold' },
+                    em: { fontFamily: 'Poppins-Italic' }
+                  }}
                 >
                   {m.text}
-                </Text>
+                </Markdown>
               </View>
             ))}
             {loading && (
