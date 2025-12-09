@@ -11,14 +11,27 @@ export const explainIngredient = async (ingredient: string) => {
 
 export const chatWithAI = async (message: string) => {
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-  const res = await fetch(`${apiUrl}/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 90000);
 
-  if (!res.ok) throw new Error("Chat failed");
+  try {
+    const res = await fetch(`${apiUrl}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+      signal: controller.signal,
+    });
 
-  return res.json() as Promise<{ reply: string }>;
+    if (!res.ok) throw new Error("Chat failed");
+
+    return res.json() as Promise<{ reply: string }>;
+  } catch (error: any) {
+    if (error.name === "AbortError") {
+      throw new Error("Server is waking up. This may take a minute. Please try again.");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 };
 

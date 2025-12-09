@@ -26,7 +26,9 @@ export interface PredictResponse {
   confidence_display: string;
   all_predictions: PredictionItem[];
   recommended: Record<string, IngredientRead[]>;
-  avoided: Record<string, IngredientRead[]>;   
+  avoided: Record<string, IngredientRead[]>;
+  was_enhanced?: boolean;
+  enhanced_image?: string | null;
 }
 
 export type IngredientSearchResponse = IngredientRead[];

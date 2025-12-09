@@ -15,6 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/ui/Button";
 import { EmptyState } from "../components/EmptyState";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Results() {
   const { result, loading, handleRetry } = usePredictionResult();
@@ -53,7 +54,7 @@ export default function Results() {
           </Text>
           <View className="w-6 h-6" />
         </View>
-
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-1 items-center px-8" style={{ marginTop: 30 }}>
           <Image source={images.logo} style={{ width: 90, height: 90 }} />
 
@@ -62,9 +63,24 @@ export default function Results() {
             .
           </Text>
 
-          <Text className="font-poppins-medium text-md text-inactive text-center mb-8 px-4">
+          <Text className="font-poppins-medium text-sm text-inactive text-center mb-6 px-4">
             {getSkinTypeExplanation(result.skin_type)}
           </Text>
+
+          {result.was_enhanced && result.enhanced_image && (
+            <View className="items-center mb-6">
+              <Image
+                source={{
+                  uri: `data:image/jpeg;base64,${result.enhanced_image}`,
+                }}
+                style={{ width: 200, height: 200, borderRadius: 12 }}
+                resizeMode="cover"
+              />
+              <Text className="font-poppins-medium text-xs text-inactive text-center mt-2">
+                We enhanced your image for better results!
+              </Text>
+            </View>
+          )}
 
           <ConfidenceScores predictions={result.all_predictions} />
 
@@ -73,11 +89,12 @@ export default function Results() {
             onPress={() => router.push("/recommendations")}
             size="default"
           />
-          <Text className="font-poppins-medium text-sm text-white text-center mt-4">
+          <Text className="font-poppins-regular text-sm text-white text-center mb-6 mt-2 px-4">
             Not satisfied with the results? Go back and scan your face again or
             try a different photo.
           </Text>
         </View>
+        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );

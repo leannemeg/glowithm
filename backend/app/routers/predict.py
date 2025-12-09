@@ -8,14 +8,12 @@ from app.utils.validator import validate_and_fix_image
 
 router = APIRouter(prefix="/predict")
 
+
 @router.post("", response_model=PredictResponse)
-async def predict_endpoint(
-    file: UploadFile = File(...),
-    db: Session = Depends(get_db)
-):
+async def predict_endpoint(file: UploadFile = File(...), db: Session = Depends(get_db)):
     img_bytes = await file.read()
-    
-    img_bytes = validate_and_fix_image(img_bytes)
+
+    img_bytes, was_enhanced, enhanced_image_base64 = validate_and_fix_image(img_bytes)
     pred = predict_skin(img_bytes)
 
     skin = pred["prediction"]
@@ -28,4 +26,6 @@ async def predict_endpoint(
         "all_predictions": pred["all_predictions"],
         "recommended": recs_grouped,
         "avoided": avoid_grouped,
+        "was_enhanced": was_enhanced,
+        "enhanced_image": enhanced_image_base64,
     }
