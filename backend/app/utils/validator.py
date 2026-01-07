@@ -46,6 +46,13 @@ def validate_and_fix_image(image_bytes: bytes) -> tuple[bytes, bool, str | None]
             detail=f"Unsupported format: {pil.format}. Allowed: JPG/JPEG, PNG",
         )
 
+    # Reject true grayscale images (PIL modes 'L' or 'LA')
+    if pil.mode in ("L", "LA"):
+        raise HTTPException(
+            status_code=400,
+            detail="Grayscale images are not supported. Refrain from uploading with grayscale or filters applied.",
+        )
+
     # Decode CV2 for algorithm-based processing
     try:
         img = read_image_from_bytes(image_bytes)

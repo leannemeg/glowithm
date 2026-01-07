@@ -4,9 +4,9 @@ import numpy as np
 # Improve brightness and contrast for slightly dark or low-contrast images
 def apply_clahe(img):
     """
-    Convert image to LAB color space (where L is lightness).
+    Convert image to LAB color space (where L is lightness, A is green-red, B is blue-yellow).
     Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) on the L channel.
-    Convert back to BGR for OpenCV.
+    Convert back to BGR.
     """
     lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(lab)
@@ -17,7 +17,7 @@ def apply_clahe(img):
 
 def reduce_highlights(img):
     """
-    Convert the image to HSV color space.
+    Convert the image to HSV (Hue, Saturation, Value) color space.
     Dampens pixels in the V (value/brightness) channel above 230 by 10%.
     Convert back to BGR.
     """
@@ -36,8 +36,10 @@ def unsharp_mask(img, kernel_size=(7,7), sigma=7.0, amount=0.8):
     return cv2.addWeighted(img, 1.0+amount, blurred, -amount, 0)
     """
     img - original image
+    1.0+amount - weight of the original image
     blurred - Gaussian blurred version of the image
-    amount - controls how strong the sharpening is
+    -amount - weight of the blurred image to be subtracted from the original image
+    0 - scalar added to each summand
     """
 
 def upscale_bicubic_to_min(img, min_target=512):
